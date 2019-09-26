@@ -40,7 +40,7 @@ Open your browser on http://localhost:4200/ to view the list of Oslo City Bike S
 
 
 ##### Troubleshooting
-If you have a problem staring the project, make sure that you are using nvm version 10.9.0 or later.
+If you have a problem staring the project, make sure that you are using node version 10.9.0 or later.
 
 ```
 $ nvm use v10.9.0 
