@@ -9,7 +9,7 @@ The project was generated with [Angular CLI](https://github.com/angular/angular-
 ##### Clone the repo
 
 ```
-$ git clone git@github.com/gyrdbr/oslo-city-bike-station-list.git
+$ git clone https://github.com/gyrdbr/oslo-city-bike-station-list.git
 $ cd oslo-city-bike-station-list
 ```
 
@@ -26,13 +26,15 @@ Then you are up and running and may start the project with
 $ npm start
 ```
 
-Make sure that you are using nvm version 10.9.0 or later.
+Open your browser on http://localhost:4200/ to view the list of Oslo City Bike Stations.
+
+
+##### Troubleshooting
+If you have a problem staring the project, make sure that you are using nvm version 10.9.0 or later.
 
 ```
 $ nvm use v10.9.0 
 ```
-
-Open your browser on http://localhost:4200/ to view the list of Oslo City Bike Stations.
 
 
 ## Further help
