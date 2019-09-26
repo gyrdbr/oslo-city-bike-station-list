@@ -4,12 +4,22 @@ This application demonstrates the use of a real time API providing information a
 
 The project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
+## Dependencies
+The application requires these dependencies to be installed
+
+- Node
+- npm
+
 ## Setting up
 
 ##### Clone the repo
 
 ```
 $ git clone https://github.com/gyrdbr/oslo-city-bike-station-list.git
+```
+
+##### Navigate to the repository
+```
 $ cd oslo-city-bike-station-list
 ```
 
