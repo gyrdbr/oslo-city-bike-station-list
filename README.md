@@ -26,11 +26,15 @@ $ npm install
 ## Run app
 Then you are up and running and may start the project with
 
-npm start
+```
+$ npm start
+```
 
 Make sure that you are using nvm version 10.9.0 or later.
 
-nvm use v10.9.0 
+```
+$ nvm use v10.9.0 
+```
 
 Open your browser on http://localhost:4200/ to view the list of Oslo City Bike Stations.
 
