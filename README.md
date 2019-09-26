@@ -10,12 +10,20 @@ The project requires that you have these dependencies installed
 - npm (https://www.npmjs.com/get-npm)
 
 ## Installation
-Fork this repo
+Clone the repo
 
-git clone git@github.com:[USERNAME]/oslo-city-bike-station-list.git
+```
+$ git clone git@github.com/gyrdbr/oslo-city-bike-station-list.git
+$ cd oslo-city-bike-station-list
+```
 
-npm install
+## Install dependencies
 
+```
+$ npm install
+```
+
+## Run app
 Then you are up and running and may start the project with
 
 npm start
