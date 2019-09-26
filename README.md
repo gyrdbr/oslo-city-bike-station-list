@@ -9,25 +9,23 @@ The project requires that you have these dependencies installed
 - Node (https://nodejs.org)
 - npm (https://www.npmjs.com/get-npm)
 
-## Development server
+## Installation
+Fork this repo
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+git clone git@github.com:[USERNAME]/oslo-city-bike-station-list.git
 
-## Code scaffolding
+npm install
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Then you are up and running and may start the project with
 
-## Build
+npm start
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Make sure that you are using nvm version 10.9.0 or later.
 
-## Running unit tests
+nvm use v10.9.0 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Open your browser on http://localhost:4200/ to view the list of Oslo City Bike Stations.
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ## Further help
 
