@@ -2,6 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
+This application demonstrates the use of a real time API providing information about available bikes and docks at Oslo City Bike stations. 
+
+## Dependencies 
+The project requires that you have these dependencies installed
+- Node (https://nodejs.org)
+- npm (https://www.npmjs.com/get-npm)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
