@@ -1,0 +1,14 @@
+<h1>Finn ledige bysykler og låser</h1>
+<div *ngIf="statusList.length > 0" class="table--3cols">
+  <div class="tcell header status-name">Stativ</div>
+  <!-- div class="tcell header last-reported">Sist sjekket</div -->
+  <div class="tcell header status-num-docks-available">Tilgjengelige låser</div>
+  <div class="tcell header status-num-bikes">Ledige sykler</div>
+  <ng-container *ngFor="let status of statusList">
+    <div class="tcell status-name">{{status.name}}</div>
+    <!-- include last reported for debugging purposes -->
+    <!-- div class="tcell last-reported">{{status.last_reported}}</div -->
+    <div class="tcell status-num-docks-available {{getAvailability(status.num_docks_available)}}">{{status.num_docks_available}}</div>
+    <div class="tcell status-num-bikes {{getAvailability(status.num_bikes_available)}}">{{status.num_bikes_available}}</div>
+  </ng-container>
+</div>
