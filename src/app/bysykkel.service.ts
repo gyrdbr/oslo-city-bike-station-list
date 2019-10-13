@@ -8,10 +8,10 @@ import { catchError } from 'rxjs/operators';
 })
 export class BysykkelService {
 
-  private corsApiUrl = 'https://cors-anywhere.herokuapp.com/'; // proxy to enable cross-origin requests
-  private stationInfoUrl =
+  public corsApiUrl = 'https://cors-anywhere.herokuapp.com/'; // proxy to enable cross-origin requests
+  public stationInfoUrl =
     'https://gbfs.urbansharing.com/oslobysykkel.no/station_information.json'; // station information endpoint
-  private stationStatusUrl = 'https://gbfs.urbansharing.com/oslobysykkel.no/station_status.json'; // stations status endpoint
+  public stationStatusUrl = 'https://gbfs.urbansharing.com/oslobysykkel.no/station_status.json'; // stations status endpoint
 
   private stationOptions = {
     headers: new HttpHeaders({
