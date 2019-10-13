@@ -1,27 +1,51 @@
 # OsloCityBikeStationList
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
+This application demonstrates the use of a real time API providing information about available bikes and docks at Oslo City Bike stations. 
 
-## Development server
+The project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Dependencies
+The application requires these dependencies to be installed
 
-## Code scaffolding
+- Node
+- npm
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Setting up
 
-## Build
+##### Clone the repo
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```
+$ git clone https://github.com/gyrdbr/oslo-city-bike-station-list.git
+```
 
-## Running unit tests
+##### Navigate to the repository
+```
+$ cd oslo-city-bike-station-list
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+##### Install dependencies
 
-## Running end-to-end tests
+```
+$ npm install
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+##### Run app
+Then you are up and running and may start the project with
+
+```
+$ npm start
+```
+
+Open your browser on http://localhost:4200/ to view the list of Oslo City Bike Stations.
+
+
+##### Troubleshooting
+If you have a problem staring the project, make sure that you are using node version 10.9.0 or later.
+
+```
+$ nvm use v10.9.0 
+```
+
 
 ## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+It is not required to install Angular CLI in order to run the application and view it in the browser. However, if you wish to know more or get help on the Angular CLI check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
