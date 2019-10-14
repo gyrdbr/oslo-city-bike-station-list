@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { timer } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +25,10 @@ export class BysykkelService {
 
   constructor(
     private http: HttpClient
-  ) {}
+  ) { }
 
   /** GET station information endpoint */
-  getBikeSites(): Observable<any> {
+  public getBikeSites(): Observable<any> {
     return this.http.get(this.corsApiUrl + this.stationInfoUrl, this.stationOptions)
       .pipe(
         catchError(this.handleError<any>('getBikeSites', []))
@@ -33,11 +36,20 @@ export class BysykkelService {
   }
 
   /** GET station with availability status endpoint */
-  getBikeSiteStatus(): Observable<any> {
+  public getBikeSiteStatus(): Observable<any> {
     return this.http.get(this.corsApiUrl + this.stationStatusUrl, this.stationOptions)
       .pipe(
         catchError(this.handleError<any>('getBikeStatus', []))
       );
+  }
+
+  /** combine station result with latest status result in array */
+  public getCombinedBikesAndStatus(): Observable<any> {
+    return combineLatest(
+      this.getBikeSites(),
+      timer(0, 10000).pipe( // recheck status data every 10 seconds
+        switchMap(() => this.getBikeSiteStatus())
+      ));
   }
 
   /**

@@ -1,7 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, timer } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { BysykkelService } from '../bysykkel.service';
-import { switchMap } from 'rxjs/operators';
+
+interface StationInfo {
+  station_id: string;
+  name: string;
+  address: string;
+  lat: number;
+  lon: number;
+  capacity: number;
+}
 
 interface StationStatus {
   is_installed: number;
@@ -14,7 +22,11 @@ interface StationStatus {
 }
 
 interface DisplayStatus {
+  station_id: string;
   name: string;
+  address: string;
+  lat: number;
+  lon: number;
   num_bikes_available: number;
   num_docks_available: number;
   last_reported: number;
@@ -27,95 +39,87 @@ interface DisplayStatus {
 })
 export class BikesiteListComponent implements OnInit, OnDestroy {
 
-  public statusList = Array(); /* sorted list of sites with statuses and names */
+  public lastUpdated: number;
+  public statusList = Array(); /* list of sites with statuses and names */
   private subscription: Subscription;
+  public foo: any;
+  public bar: any;
 
   constructor(
-    private bysykkelService: BysykkelService
+    public bysykkelService: BysykkelService
   ) { }
 
   ngOnInit() {
-    /* get static list of stations once */
-    this.subscription = this.bysykkelService.getBikeSites()
-      .subscribe(res1 => {
-        if (res1.data && res1.data.stations) {
-          const stations = res1.data.stations;
-          // recheck status data every 10 seconds
-          timer(0, 10000).pipe(
-            switchMap(() => this.bysykkelService.getBikeSiteStatus())
-          ).subscribe(res2 => {
-            if (res2.data && res2.data.stations) {
-              this.statusList = this.createStatusList(res2.data.stations, stations);
-            }
-          });
+    this.subscription = this.bysykkelService.getCombinedBikesAndStatus()
+      .subscribe(res => {
+        if (res.length === 2 && res[0].data && res[0].data.stations &&
+          res[1].data && res[1].data.stations && res[1].last_updated) {
+          this.lastUpdated = res[1].last_updated;
+          this.statusList = this.createBikeStatusList(res[0].data.stations, res[1].data.stations);
         }
-      });
+    });
   }
 
   /**
-   * Create a sorted list of statuses to be displayed in the template
-   * @param statuses - an array of station status objects
+   * Create a list of statuses to be sendt to map
    * @param stations - an array of station information objects
-   * @returns returns a sorted list of station objects containing station name and availability status
+   * @param statuses - an array of station status objects
+   * @returns returns a list of station objects containing station name and availability status
    */
-  private createStatusList(statuses: Array<StationStatus>, stations: Array<any>): Array<DisplayStatus> {
+  public createBikeStatusList(stations: Array<StationInfo>, statuses: Array<StationStatus>): Array<DisplayStatus> {
     const statusList = Array();
-    statuses.forEach(elem => {
-      statusList.push(this.createStatusElem(elem, this.getStationNameFromId(elem.station_id, stations)));
-    });
-
-    // sort the list on the names of the stations for readability
-    statusList.sort((selem1, selem2) => {
-      return selem1.name.localeCompare(selem2.name);
+    stations.forEach(elem => {
+      const stationStatus = this.getStationStatusInfo(elem.station_id, statuses);
+      if (stationStatus) {
+        statusList.push(this.createStatusElem(elem, stationStatus));
+      }
     });
     return statusList;
   }
 
   /**
-   * Get the name of a station from its id
+   * Get the status information of a station from its id
    * @param id - the station id
-   * @param stations - an array of station information objects
-   * @returns returns the name of the station
+   * @param stations - an array of station status objects
+   * @returns returns the station object with the corresponding id
    */
-  private getStationNameFromId(id: string, stations): string {
-    const nameElem = stations.find(elem => {
+  public getStationStatusInfo(id: string, stations: Array<StationStatus>): StationStatus {
+    return stations.find(elem => {
       return elem.station_id && elem.station_id === id;
     });
-    if (nameElem && nameElem.name) {
-      return nameElem.name;
-    } else {
-      return '';
-    }
   }
 
   /**
-   * Create a status object containing station name and availability status
-   * @param elem - a station status object
-   * @param stName - the name of a station
-   * @returns returns a status object containing station name and availability status
+   * Create a status object containing station info and availability status
+   * @param info- a station info object
+   * @param status - a station status object
+   * @returns returns an object containing station info and availability status
    */
-  private createStatusElem(elem: StationStatus, stName: string): DisplayStatus {
+  private createStatusElem(info: StationInfo, status: StationStatus): DisplayStatus {
     return {
-      name: stName,
-      num_bikes_available: elem.num_bikes_available,
-      num_docks_available: elem.num_docks_available,
-      last_reported: elem.last_reported
+      station_id: info.station_id,
+      name: info.name,
+      lat: info.lat,
+      lon: info.lon,
+      address: info.address,
+      num_bikes_available: status.num_bikes_available,
+      num_docks_available: status.num_docks_available,
+      last_reported: status.last_reported
     };
   }
 
   /**
-   * Used in template for setting css class indicating availability
-   * @param num - number of available bikes or docks
-   * @returns returns a class name for styling purposes
+   * Convert posix timestamp to human readable format
+   * @param posix- a posix timestamp
+   * @returns returns a human readable time as a string
    */
-  public getAvailability(num: number): string {
-    if (num === 0) {
-      return 'none';
-    } else if (num <= 2) {
-      return 'limited';
-    } else {
-      return 'available';
-    }
+  public displayDate(posix: number): string {
+    const currentDatetime = new Date(posix * 1000);
+    const formattedDate = currentDatetime.getFullYear() +
+      '-' + (currentDatetime.getMonth() + 1) + '-' +
+      currentDatetime.getDate() + ' ' + currentDatetime.getHours() +
+      ':' + currentDatetime.getMinutes() + ':' + currentDatetime.getSeconds();
+    return formattedDate;
   }
 
   ngOnDestroy() {
