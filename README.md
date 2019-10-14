@@ -38,6 +38,14 @@ $ npm start
 
 Open your browser on http://localhost:4200/ to view the list of Oslo City Bike Stations.
 
+##### Running unit tests
+
+```
+$ npm run test
+```
+
+To execute the unit tests via Karma.
+
 
 ##### Troubleshooting
 If you have a problem staring the project, make sure that you are using node version 10.9.0 or later.
