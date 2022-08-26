@@ -77,7 +77,7 @@ describe('BysykkelService', () => {
           }
         });
 
-        const mockReq = httpMock.expectOne(bysykkelService.corsApiUrl + bysykkelService.stationInfoUrl);
+        const mockReq = httpMock.expectOne(bysykkelService.stationInfoUrl);
 
         expect(mockReq.cancelled).toBeFalsy();
         expect(mockReq.request.responseType).toEqual('json');
@@ -101,7 +101,7 @@ describe('BysykkelService', () => {
           }
         });
 
-        const mockReq = httpMock.expectOne(bysykkelService.corsApiUrl + bysykkelService.stationStatusUrl);
+        const mockReq = httpMock.expectOne(bysykkelService.stationStatusUrl);
 
         expect(mockReq.cancelled).toBeFalsy();
         expect(mockReq.request.responseType).toEqual('json');

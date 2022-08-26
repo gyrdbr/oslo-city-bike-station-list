@@ -11,7 +11,6 @@ import { combineLatest } from 'rxjs';
 })
 export class BysykkelService {
 
-  public corsApiUrl = 'https://cors-anywhere.herokuapp.com/'; // proxy to enable cross-origin requests
   public stationInfoUrl =
     'https://gbfs.urbansharing.com/oslobysykkel.no/station_information.json'; // station information endpoint
   public stationStatusUrl = 'https://gbfs.urbansharing.com/oslobysykkel.no/station_status.json'; // stations status endpoint
@@ -29,7 +28,7 @@ export class BysykkelService {
 
   /** GET station information endpoint */
   public getBikeSites(): Observable<any> {
-    return this.http.get(this.corsApiUrl + this.stationInfoUrl, this.stationOptions)
+    return this.http.get(this.stationInfoUrl, this.stationOptions)
       .pipe(
         catchError(this.handleError<any>('getBikeSites', []))
       );
@@ -37,7 +36,7 @@ export class BysykkelService {
 
   /** GET station with availability status endpoint */
   public getBikeSiteStatus(): Observable<any> {
-    return this.http.get(this.corsApiUrl + this.stationStatusUrl, this.stationOptions)
+    return this.http.get(this.stationStatusUrl, this.stationOptions)
       .pipe(
         catchError(this.handleError<any>('getBikeStatus', []))
       );
